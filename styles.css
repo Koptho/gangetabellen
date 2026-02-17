@@ -1,0 +1,244 @@
+:root {
+  --ink: #0f1f31;
+  --paper: #f9f5eb;
+  --accent: #fd4f00;
+  --accent-deep: #cb2e00;
+  --mint: #33c58e;
+  --danger: #d7263d;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  color: var(--ink);
+  font-family: "Avenir Next", "Trebuchet MS", "Segoe UI", sans-serif;
+  background:
+    radial-gradient(65rem 45rem at -10% -20%, #ffd8c2 0%, transparent 50%),
+    radial-gradient(65rem 45rem at 110% 120%, #fff3b3 0%, transparent 55%),
+    linear-gradient(160deg, #fff2e8, #f8f7da 48%, #def5ee);
+}
+
+.app {
+  width: min(96vw, 760px);
+  background: rgba(255, 255, 255, 0.86);
+  border: 1px solid rgba(15, 31, 49, 0.12);
+  border-radius: 22px;
+  padding: 22px;
+  box-shadow: 0 16px 40px rgba(15, 31, 49, 0.18);
+  display: grid;
+  gap: 14px;
+}
+
+.hero h1,
+.hero p {
+  margin: 0;
+}
+
+.hero h1 {
+  font-size: clamp(1.6rem, 2.8vw, 2.2rem);
+}
+
+.hero p {
+  margin-top: 4px;
+  color: #30485f;
+}
+
+.hud {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.pill {
+  background: #fff;
+  border: 1px solid rgba(15, 31, 49, 0.12);
+  border-radius: 12px;
+  padding: 10px;
+  text-align: center;
+}
+
+.pill span {
+  display: block;
+  font-size: 0.76rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  opacity: 0.74;
+}
+
+.pill strong {
+  font-size: 1.25rem;
+}
+
+.progress-wrap {
+  width: 100%;
+  height: 12px;
+  border-radius: 999px;
+  background: #e6ecef;
+  overflow: hidden;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--mint), #9be55b);
+  transition: width 0.18s linear, background 0.18s linear;
+}
+
+.card {
+  border-radius: 16px;
+  border: 1px solid rgba(15, 31, 49, 0.1);
+  background: #fffcf6;
+  padding: 18px;
+  text-align: center;
+}
+
+.status-line {
+  margin: 0;
+  font-size: 0.95rem;
+  color: #35556e;
+}
+
+.question {
+  margin: 8px 0 14px;
+  font-size: clamp(2rem, 6vw, 3.1rem);
+  font-weight: 800;
+}
+
+#answerForm {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+#answerInput {
+  width: min(220px, 60vw);
+  padding: 10px 12px;
+  font-size: 1.15rem;
+  border-radius: 10px;
+  border: 2px solid #d8e0e6;
+}
+
+button {
+  border: none;
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-weight: 700;
+  cursor: pointer;
+  background: linear-gradient(180deg, var(--accent) 0%, var(--accent-deep) 100%);
+  color: #fff;
+}
+
+button.ghost {
+  background: #fff;
+  color: var(--ink);
+  border: 1px solid rgba(15, 31, 49, 0.22);
+}
+
+.feedback {
+  margin: 10px 0 0;
+  min-height: 1.3rem;
+  font-weight: 700;
+}
+
+.feedback.ok {
+  color: #1b8f56;
+}
+
+.feedback.err {
+  color: var(--danger);
+}
+
+.controls {
+  display: grid;
+  gap: 12px;
+}
+
+.table-picker p {
+  margin: 0 0 8px;
+  font-weight: 700;
+}
+
+.table-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.table-options label {
+  padding: 7px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(15, 31, 49, 0.18);
+  background: #fff;
+  font-weight: 600;
+}
+
+.table-options input {
+  margin-right: 6px;
+}
+
+.buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.shake {
+  animation: shake 0.24s linear;
+}
+
+.burst {
+  animation: burst 0.36s ease-out;
+}
+
+@keyframes shake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-6px); }
+  50% { transform: translateX(6px); }
+  75% { transform: translateX(-4px); }
+  100% { transform: translateX(0); }
+}
+
+@keyframes burst {
+  0% { transform: scale(1); }
+  45% { transform: scale(1.07); }
+  100% { transform: scale(1); }
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (max-width: 640px) {
+  .app {
+    padding: 16px;
+  }
+
+  .hud {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  #answerForm {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #answerInput {
+    width: 100%;
+  }
+}

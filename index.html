@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="nn">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gangetabell Sprint</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app" aria-live="polite">
+      <header class="hero">
+        <h1>Gangetabell Sprint</h1>
+        <p>Rask hovudrekning med fart, combo og bonuspoeng.</p>
+      </header>
+
+      <section class="hud">
+        <div class="pill"><span>Poeng</span><strong id="score">0</strong></div>
+        <div class="pill"><span>Combo</span><strong id="combo">x1</strong></div>
+        <div class="pill"><span>Liv</span><strong id="lives">3</strong></div>
+        <div class="pill"><span>Nivå</span><strong id="level">1</strong></div>
+      </section>
+
+      <section class="progress-wrap" aria-label="Tid att">
+        <div id="timerBar" class="progress-bar"></div>
+      </section>
+
+      <section class="card">
+        <p id="statusLine" class="status-line">Vel tabellar og trykk start.</p>
+        <p id="question" class="question">3 × 4 = ?</p>
+
+        <form id="answerForm" autocomplete="off">
+          <label for="answerInput" class="sr-only">Svar</label>
+          <input id="answerInput" type="number" inputmode="numeric" placeholder="Skriv svar" required />
+          <button type="submit">Svar</button>
+        </form>
+
+        <p id="feedback" class="feedback" aria-live="assertive"></p>
+      </section>
+
+      <section class="controls">
+        <div class="table-picker" role="group" aria-label="Vel tabellar">
+          <p>Tren på:</p>
+          <div id="tableOptions" class="table-options"></div>
+        </div>
+
+        <div class="buttons">
+          <button id="startButton" type="button">Start spel</button>
+          <button id="restartButton" type="button" class="ghost">Start på nytt</button>
+        </div>
+      </section>
+    </main>
+
+    <script src="main.js"></script>
+  </body>
+</html>
