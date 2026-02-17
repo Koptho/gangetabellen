@@ -49,6 +49,25 @@
           <button id="restartButton" type="button" class="ghost">Start på nytt</button>
         </div>
       </section>
+
+      <section class="leaderboard" aria-labelledby="leaderboardTitle">
+        <h2 id="leaderboardTitle">Toppscore</h2>
+        <ol id="highScoreList" class="score-list"></ol>
+
+        <form id="saveScoreForm" class="save-score hidden" autocomplete="off">
+          <label for="playerName">Namn</label>
+          <input
+            id="playerName"
+            name="playerName"
+            type="text"
+            maxlength="14"
+            placeholder="Skriv namnet ditt"
+            required
+          />
+          <button type="submit">Lagre score</button>
+        </form>
+        <p id="saveHint" class="save-hint"></p>
+      </section>
     </main>
 
     <script src="main.js"></script>

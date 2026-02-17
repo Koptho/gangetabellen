@@ -190,6 +190,54 @@ button.ghost {
   gap: 8px;
 }
 
+.leaderboard {
+  border-radius: 16px;
+  border: 1px solid rgba(15, 31, 49, 0.1);
+  background: #fff;
+  padding: 16px;
+}
+
+.leaderboard h2 {
+  margin: 0 0 10px;
+  font-size: 1.25rem;
+}
+
+.score-list {
+  margin: 0;
+  padding-left: 22px;
+}
+
+.score-list li {
+  padding: 4px 0;
+  font-weight: 600;
+}
+
+.save-score {
+  margin-top: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.save-score label {
+  font-weight: 700;
+}
+
+.save-score input {
+  min-width: 180px;
+  padding: 9px 10px;
+  border-radius: 9px;
+  border: 1px solid rgba(15, 31, 49, 0.24);
+}
+
+.save-hint {
+  min-height: 1.2rem;
+  margin: 8px 0 0;
+  color: #35556e;
+  font-weight: 600;
+}
+
 .shake {
   animation: shake 0.24s linear;
 }
@@ -222,6 +270,10 @@ button.ghost {
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border: 0;
+}
+
+.hidden {
+  display: none;
 }
 
 @media (max-width: 640px) {
