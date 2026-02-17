@@ -9,16 +9,21 @@
   var questionEl = document.getElementById("question");
   var feedbackEl = document.getElementById("feedback");
   var timerBarEl = document.getElementById("timerBar");
+  var gameScreen = document.getElementById("gameScreen");
+  var resultScreen = document.getElementById("resultScreen");
 
   var answerForm = document.getElementById("answerForm");
   var answerInput = document.getElementById("answerInput");
   var tableOptions = document.getElementById("tableOptions");
   var startButton = document.getElementById("startButton");
   var restartButton = document.getElementById("restartButton");
+  var playAgainButton = document.getElementById("playAgainButton");
   var highScoreListEl = document.getElementById("highScoreList");
   var saveScoreForm = document.getElementById("saveScoreForm");
   var playerNameInput = document.getElementById("playerName");
   var saveHintEl = document.getElementById("saveHint");
+  var finalScoreEl = document.getElementById("finalScore");
+  var resultMessageEl = document.getElementById("resultMessage");
 
   var STORAGE_KEY = "gangetabell-toppscore-v1";
 
@@ -34,6 +39,7 @@
     running: false,
     finished: false,
     timerId: null,
+    scoreSaved: false,
   };
 
   var highScores = [];
@@ -131,12 +137,13 @@
   function endGame() {
     state.running = false;
     state.finished = true;
-    statusLineEl.textContent = "Spelet er over. Trykk Start på nytt for ny runde.";
+    state.scoreSaved = false;
+    statusLineEl.textContent = "Runden er ferdig.";
     questionEl.textContent = "Sluttsum: " + state.score;
     answerInput.disabled = true;
     feedbackEl.textContent = "Game over.";
     feedbackEl.classList.add("err");
-    updateSaveSection();
+    showResultScreen();
   }
 
   function normalizeName(name) {
@@ -163,7 +170,7 @@
         .sort(function (a, b) {
           return b.score - a.score;
         })
-        .slice(0, 5);
+        .slice(0, 10);
     } catch (err) {
       return [];
     }
@@ -194,32 +201,25 @@
     });
   }
 
-  function isTopScore(score) {
-    if (score <= 0) return false;
-    if (highScores.length < 5) return true;
-    return score > highScores[highScores.length - 1].score;
+  function showGameScreen() {
+    resultScreen.classList.add("hidden");
+    gameScreen.classList.remove("hidden");
   }
 
-  function updateSaveSection() {
-    if (!state.finished) {
-      saveScoreForm.classList.add("hidden");
-      saveHintEl.textContent = "";
-      return;
-    }
-
-    if (isTopScore(state.score)) {
-      saveScoreForm.classList.remove("hidden");
-      saveHintEl.textContent = "Ny toppscore! Skriv namn og lagre.";
-      playerNameInput.focus();
-    } else {
-      saveScoreForm.classList.add("hidden");
-      saveHintEl.textContent = "Ikkje topp 5 denne gongen. Prøv igjen.";
-    }
+  function showResultScreen() {
+    gameScreen.classList.add("hidden");
+    resultScreen.classList.remove("hidden");
+    finalScoreEl.textContent = String(state.score);
+    resultMessageEl.textContent = "Runden er ferdig. Skriv namn og lagre resultatet ditt.";
+    saveHintEl.textContent = "";
+    playerNameInput.value = "";
+    playerNameInput.focus();
+    renderHighScores();
   }
 
   function saveCurrentScore(event) {
     event.preventDefault();
-    if (!state.finished || !isTopScore(state.score)) return;
+    if (!state.finished || state.scoreSaved) return;
 
     var newEntry = {
       name: normalizeName(playerNameInput.value),
@@ -230,13 +230,14 @@
     highScores.sort(function (a, b) {
       return b.score - a.score;
     });
-    highScores = highScores.slice(0, 5);
+    highScores = highScores.slice(0, 10);
     var didSave = saveHighScores();
     renderHighScores();
 
-    saveScoreForm.classList.add("hidden");
-    saveHintEl.textContent = didSave ? "Score lagra!" : "Kunne ikkje lagre i nettlesaren.";
-    playerNameInput.value = "";
+    state.scoreSaved = true;
+    saveHintEl.textContent = didSave
+      ? "Resultatet er lagra i toppscorelista."
+      : "Kunne ikkje lagre i nettlesaren.";
   }
 
   function handleCorrect() {
@@ -304,10 +305,9 @@
     state.level = 1;
     state.running = true;
     state.finished = false;
+    state.scoreSaved = false;
     answerInput.disabled = false;
-    saveScoreForm.classList.add("hidden");
-    playerNameInput.value = "";
-    saveHintEl.textContent = "";
+    showGameScreen();
     updateHUD();
     statusLineEl.textContent = "Svar raskt for combo og høgare poeng.";
     setRoundTimer();
@@ -322,6 +322,7 @@
   function boot() {
     highScores = loadHighScores();
     renderHighScores();
+    showGameScreen();
     renderTableOptions();
     updateHUD();
     questionEl.textContent = "Trykk Start spel for å byrje.";
@@ -333,5 +334,6 @@
   saveScoreForm.addEventListener("submit", saveCurrentScore);
   startButton.addEventListener("click", startGame);
   restartButton.addEventListener("click", restartGame);
+  playAgainButton.addEventListener("click", startGame);
   boot();
 })();

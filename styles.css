@@ -36,6 +36,12 @@ body {
   gap: 14px;
 }
 
+#gameScreen,
+#resultScreen {
+  display: grid;
+  gap: 14px;
+}
+
 .hero h1,
 .hero p {
   margin: 0;

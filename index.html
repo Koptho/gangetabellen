@@ -9,64 +9,82 @@
   </head>
   <body>
     <main class="app" aria-live="polite">
-      <header class="hero">
-        <h1>Gangetabell Sprint</h1>
-        <p>Rask hovudrekning med fart, combo og bonuspoeng.</p>
-      </header>
+      <section id="gameScreen">
+        <header class="hero">
+          <h1>Gangetabell Sprint</h1>
+          <p>Rask hovudrekning med fart, combo og bonuspoeng.</p>
+        </header>
 
-      <section class="hud">
-        <div class="pill"><span>Poeng</span><strong id="score">0</strong></div>
-        <div class="pill"><span>Combo</span><strong id="combo">x1</strong></div>
-        <div class="pill"><span>Liv</span><strong id="lives">3</strong></div>
-        <div class="pill"><span>Nivå</span><strong id="level">1</strong></div>
+        <section class="hud">
+          <div class="pill"><span>Poeng</span><strong id="score">0</strong></div>
+          <div class="pill"><span>Combo</span><strong id="combo">x1</strong></div>
+          <div class="pill"><span>Liv</span><strong id="lives">3</strong></div>
+          <div class="pill"><span>Nivå</span><strong id="level">1</strong></div>
+        </section>
+
+        <section class="progress-wrap" aria-label="Tid att">
+          <div id="timerBar" class="progress-bar"></div>
+        </section>
+
+        <section class="card">
+          <p id="statusLine" class="status-line">Vel tabellar og trykk start.</p>
+          <p id="question" class="question">3 × 4 = ?</p>
+
+          <form id="answerForm" autocomplete="off">
+            <label for="answerInput" class="sr-only">Svar</label>
+            <input id="answerInput" type="number" inputmode="numeric" placeholder="Skriv svar" required />
+            <button type="submit">Svar</button>
+          </form>
+
+          <p id="feedback" class="feedback" aria-live="assertive"></p>
+        </section>
+
+        <section class="controls">
+          <div class="table-picker" role="group" aria-label="Vel tabellar">
+            <p>Tren på:</p>
+            <div id="tableOptions" class="table-options"></div>
+          </div>
+
+          <div class="buttons">
+            <button id="startButton" type="button">Start spel</button>
+            <button id="restartButton" type="button" class="ghost">Start på nytt</button>
+          </div>
+        </section>
       </section>
 
-      <section class="progress-wrap" aria-label="Tid att">
-        <div id="timerBar" class="progress-bar"></div>
-      </section>
+      <section id="resultScreen" class="hidden">
+        <header class="hero">
+          <h1>Resultat</h1>
+          <p id="resultMessage">Runden er ferdig.</p>
+        </header>
 
-      <section class="card">
-        <p id="statusLine" class="status-line">Vel tabellar og trykk start.</p>
-        <p id="question" class="question">3 × 4 = ?</p>
+        <section class="card">
+          <p class="status-line">Di score</p>
+          <p id="finalScore" class="question">0</p>
 
-        <form id="answerForm" autocomplete="off">
-          <label for="answerInput" class="sr-only">Svar</label>
-          <input id="answerInput" type="number" inputmode="numeric" placeholder="Skriv svar" required />
-          <button type="submit">Svar</button>
-        </form>
+          <form id="saveScoreForm" class="save-score" autocomplete="off">
+            <label for="playerName">Namn</label>
+            <input
+              id="playerName"
+              name="playerName"
+              type="text"
+              maxlength="14"
+              placeholder="Skriv namnet ditt"
+              required
+            />
+            <button type="submit">Lagre score</button>
+          </form>
+          <p id="saveHint" class="save-hint"></p>
+        </section>
 
-        <p id="feedback" class="feedback" aria-live="assertive"></p>
-      </section>
+        <section class="leaderboard" aria-labelledby="leaderboardTitle">
+          <h2 id="leaderboardTitle">Toppscore</h2>
+          <ol id="highScoreList" class="score-list"></ol>
+        </section>
 
-      <section class="controls">
-        <div class="table-picker" role="group" aria-label="Vel tabellar">
-          <p>Tren på:</p>
-          <div id="tableOptions" class="table-options"></div>
-        </div>
-
-        <div class="buttons">
-          <button id="startButton" type="button">Start spel</button>
-          <button id="restartButton" type="button" class="ghost">Start på nytt</button>
-        </div>
-      </section>
-
-      <section class="leaderboard" aria-labelledby="leaderboardTitle">
-        <h2 id="leaderboardTitle">Toppscore</h2>
-        <ol id="highScoreList" class="score-list"></ol>
-
-        <form id="saveScoreForm" class="save-score hidden" autocomplete="off">
-          <label for="playerName">Namn</label>
-          <input
-            id="playerName"
-            name="playerName"
-            type="text"
-            maxlength="14"
-            placeholder="Skriv namnet ditt"
-            required
-          />
-          <button type="submit">Lagre score</button>
-        </form>
-        <p id="saveHint" class="save-hint"></p>
+        <section class="buttons">
+          <button id="playAgainButton" type="button">Spel igjen</button>
+        </section>
       </section>
     </main>
 
